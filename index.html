@@ -9,6 +9,9 @@
         :root {
             --bg-color: #1e1e2e;
             --text-color: #cdd6f4;
+            --success-bg: #a6e3a1;
+            --success-text: #1e1e2e;
+            --error-bg: #f38ba8;
         }
 
         body {
@@ -23,7 +26,17 @@
             margin: 0;
             text-align: center;
             overflow: hidden;
+            transition: background-color 0.2s ease, color 0.2s ease;
         }
+
+        body.success {
+            background-color: var(--success-bg);
+            color: var(--success-text);
+            }
+        body.error {
+            background-color: var(--error-bg);
+            color: var(--success-text);
+            }
 
         .container {
             max-width: 600px;
