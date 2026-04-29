@@ -122,6 +122,38 @@
     }
 
     init();
+
+    window.addEventListener('keydown', (event) => {
+      if (!isTraining) return;
+
+      // Ignore standalone modifier keys
+      if (['Control', 'Shift', 'Alt', 'Meta'].includes(event.key)) {
+        return; 
+      }
+
+      // Prevent browser default actions
+      event.preventDefault();
+
+      const currentTarget = shortcuts[currentIndex];
+
+      // Validate exactly which keys are pressed
+      const isCtrlMatch = event.ctrlKey === currentTarget.ctrlKey;
+      const isShiftMatch = event.shiftKey === currentTarget.shiftKey;
+      const isAltMatch = event.altKey === currentTarget.altKey;
+      const isKeyMatch = event.key.toLowerCase() === currentTarget.key.toLowerCase();
+
+      if (isCtrlMatch && isShiftMatch && isAltMatch && isKeyMatch) {
+        statusEl.textContent = `Correct! ${currentTarget.comboName}`;
+        currentIndex++;
+        
+        // Wait briefly before showing next prompt
+        setTimeout(() => {
+          loadShortcut(currentIndex);
+        }, 300);
+      } else {
+        statusEl.textContent = "Oops, wrong combo! Try again.";
+      }
+    });
     </script>
 </body>
 
