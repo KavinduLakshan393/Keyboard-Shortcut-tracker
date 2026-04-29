@@ -86,7 +86,42 @@
     </div>
 
     <script>
-        // JavaScript will go here
+        const shortcuts = [
+      { task: "Copy selected text", ctrlKey: true, shiftKey: false, altKey: false, key: 'c', comboName: "Ctrl + C" },
+      { task: "Paste copied text", ctrlKey: true, shiftKey: false, altKey: false, key: 'v', comboName: "Ctrl + V" },
+      { task: "Select all text", ctrlKey: true, shiftKey: false, altKey: false, key: 'a', comboName: "Ctrl + A" },
+      { task: "Save document", ctrlKey: true, shiftKey: false, altKey: false, key: 's', comboName: "Ctrl + S" }
+    ];
+
+    let currentIndex = 0;
+    let isTraining = false;
+
+    const taskPromptEl = document.getElementById('task-prompt');
+    const statusEl = document.getElementById('status');
+    const currentStepEl = document.getElementById('current-step');
+    const totalStepsEl = document.getElementById('total-steps');
+
+    function loadShortcut(index) {
+      if (index >= shortcuts.length) {
+        taskPromptEl.textContent = "Training Complete! 🎉";
+        statusEl.textContent = "Refresh to restart.";
+        isTraining = false;
+        return;
+      }
+      
+      const currentShortcut = shortcuts[index];
+      taskPromptEl.textContent = currentShortcut.task;
+      statusEl.textContent = "Press the shortcut...";
+      currentStepEl.textContent = index + 1;
+    }
+
+    function init() {
+      totalStepsEl.textContent = shortcuts.length;
+      loadShortcut(0);
+      isTraining = true;
+    }
+
+    init();
     </script>
 </body>
 
